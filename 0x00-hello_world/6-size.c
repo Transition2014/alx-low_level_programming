@@ -1,4 +1,4 @@
-nclude <stdio.h>
+#include <stdio.h>
 /**
  * Description: main - Prints the size of various types.
  * Return: 0 if runs successfully.
