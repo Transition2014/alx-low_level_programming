@@ -8,7 +8,6 @@
  * If the number is < 0: is negative.
  * Return: 0
  */
-
 int main(void)
 {
 int n;
