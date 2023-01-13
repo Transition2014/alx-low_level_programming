@@ -3,49 +3,50 @@
 #include <stdlib.h>
 
 /**
- * argstostr - a function that concatenates all the arguments
- * of your program.
- * @ac: argument count.
- * @av: argument vector array.
+ * _realloc - a function that reallocates a memory block
+ * using malloc and free.
+ * @ptr: previous malloc pointer.
+ * @old_size: previous size.
+ * @new_size: new size.
  * Return: EXIT_SUCCESS.
  */
-
-char *argstostr(int ac, char **av)
+void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size)
 {
-	char *str;
-	int x, y, z, ln;
+	unsigned int min_size = old_size > new_size ? new_size : old_size;
 
-	if (ac == 0 || av == NULL)
-		return (NULL);
-	x = ln = 0;
-	while (x < ac)
+	unsigned int max_size = old_size == min_size ? new_size : old_size;
+
+	void *pt;
+
+	unsigned int x;
+
+	if (old_size == new_size)
+		return (ptr);
+	if (ptr == NULL)
 	{
-		y = 0;
-		while (av[x][y] != '\0')
-		{
-			ln++;
-			y++;
-		}
-		ln++;
-		x++;
+		pt = malloc(new_size);
+
+		if (pt == NULL)
+			return (NULL);
+		return (pt);
 	}
-	ln++;
-	str = malloc(ln * sizeof(char));
-	if (str == NULL)
-		return (NULL);
-	x = z = 0;
-	while (x < ac)
+	else if (new_size == 0)
 	{
-		y = 0;
-		while (av[x][y] != 0)
-		{
-			str[z] = av[x][y];
-			z++;
-			y++;
-		}
-		str[z] = '\n';
-		z++;
-		x++;
+		free(ptr);
+		return (NULL);
 	}
-	return (str);
+	if (new_size < old_size)
+	{
+		char *ppt;
+
+		ppt = ((char *)ptr);
+		free(ppt + new_size);
+	}
+	pt = malloc(max_size);
+	if (pt == NULL)
+		return (NULL);
+	for (x = 0; x < min_size; x++)
+		((char *)pt)[x] = ((char *)ptr)[x];
+	free(ptr);
+	return (pt);
 }

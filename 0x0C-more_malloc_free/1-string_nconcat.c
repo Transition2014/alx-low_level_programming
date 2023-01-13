@@ -3,32 +3,44 @@
 #include <stdlib.h>
 
 /**
- * _strdup - a function that returns a pointer to a
- * newly allocated space in memory.
- * @str: duplicate string.
- * Return: EXIT_SUUCESS.
+ * string_nconcat - a function that concatenates two strings.
+ * @s1: string one.
+ * @s2: string two.
+ * @n: s2 to concatenate to s1.
+ * Return: EXIT_SUCCESS.
  */
 
-char *_strdup(char *str)
+char *string_nconcat(char *s1, char *s2, unsigned int n)
 {
-	char *nums;
-	unsigned int x, len;
+	char *nstr, *vact;
+	unsigned int x, ln, y;
+	unsigned int size;
 
-	if (str == NULL)
+	ln = 0;
+	vact = "";
+	if (s1 == NULL)
+		s1 = vact;
+	if (s2 == NULL)
+		s2 = vact;
+	while (s1[ln] != '\0')
+		ln++;
+	size = (ln + n) * sizeof(*nstr);
+	nstr = malloc(size + 1);
+	if (nstr == NULL)
 		return (NULL);
-	x = len = 0;
-	while (str[len] != '\0')
+	x = 0;
+	while (x < size && s1[x] != '\0')
 	{
-		len++;
-	}
-	len++;
-	nums = malloc(len * sizeof(*str));
-	if (nums == NULL)
-		return (NULL);
-	while (x <= len)
-	{
-		nums[x] = str[x];
+		nstr[x] = s1[x];
 		x++;
 	}
-	return (nums);
+	y = 0;
+	while (x < size && s2[y] != '\0')
+	{
+		nstr[x] = s2[y];
+		x++;
+		y++;
+	}
+	nstr[x] = '\0';
+	return (nstr);
 }

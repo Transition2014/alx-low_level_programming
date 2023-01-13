@@ -3,49 +3,24 @@
 #include <stdlib.h>
 
 /**
- * alloc_grid - a function that returns a pointer to a
- * 2 dimensional array of integers.
- * @width: width of grid.
- * @height: height of grid.
+ * array_range - a function that creates array of integers.
+ * @min: minimum range.
+ * @max: maximum range.
  * Return: EXIT_SUCCESS.
  */
 
-int **alloc_grid(int width, int height)
+int *array_range(int min, int max)
 {
-	int **grid;
-	int x, y;
+	int *ptr;
 
-	x = 0;
-	if (width <= 0 || height <= 0)
+	int x;
+
+	if (min > max)
 		return (NULL);
-	grid = malloc(height * sizeof(*grid));
-	if (grid == NULL)
-	{
-		free(grid);
+	ptr = malloc(sizeof(int) * (max - min + 1));
+	if (ptr == NULL)
 		return (NULL);
-	}
-	while (x < height)
-	{
-		grid[x] = malloc(width * sizeof(**grid));
-		if (grid[x] == NULL)
-		{
-			x--;
-			while (x >= 0)
-			{
-				free(grid[x]);
-				x--;
-			}
-			free(grid);
-			return (NULL);
-		}
-		y = 0;
-		while (y < width)
-		{
-			grid[x][y] = 0;
-			y++;
-		}
-		x++;
-	}
-	x = 0;
-	return (grid);
+	for (x = 0; x <= (max - min); x++)
+		ptr[x] = min + x;
+	return (ptr);
 }
