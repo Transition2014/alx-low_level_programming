@@ -1,10 +1,13 @@
-#ifndef FUNC
-#define FUNC
+#include <unistd.h>
 
-int _putchar(char c);
-void print_name(char *name, void (*f)(char *));
-#include <stddef.h>
-void array_iterator(int *array, size_t size, void (*action)(int));
-int int_index(int *array, int size, int (*cmp)(int));
-
-#endif/*FUNC*/
+/**
+ * _putchar - writes the character c to stdout
+ * @c: The character to print
+ *
+ * Return: On success 1.
+ * On error, -1 is returned, and errno is set appropriately.
+ */
+int _putchar(char c)
+{
+return (write(1, &c, 1));
+}
